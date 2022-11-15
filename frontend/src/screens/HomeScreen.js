@@ -1,7 +1,10 @@
-import { useEffect, useReducer, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useReducer } from 'react';
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Product from '../components/Product';
 
+//funcion que iguala el type del parametro actiony modifica states
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -16,11 +19,13 @@ const reducer = (state, action) => {
 };
 
 export default function HomeScreen() {
+  //se define hook useReducer con states y funcion dispatch, se envia como paramentro funcion a usar(reducer) y parametros por default
   const [{ loading, error, products }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
     products: [],
   });
+  //se usa dispatch dependiendo del caso que se desee aplicar
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -42,22 +47,19 @@ export default function HomeScreen() {
         ) : error ? (
           <div>{error}</div>
         ) : (
-          products.map((product) => (
-            <div className="product" key={product.slug}>
-              <Link to={`/product/${product.slug}`}>
-                <img src={product.image} alt={product.name} />
-              </Link>
-              <div className="product-info">
-                <Link to={`/product/${product.slug}`}>
-                  <p>{product.name}</p>
-                </Link>
-                <p>
-                  <strong>${product.price}</strong>
-                </p>
-                <button type="">Add to cart</button>
-              </div>
-            </div>
-          ))
+          <Row>
+            {products.map((product) => (
+              <Col
+                small={6}
+                md={4}
+                large={3}
+                className="mb-3"
+                key={product.slug}
+              >
+                <Product product={product}></Product>
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
     </div>
