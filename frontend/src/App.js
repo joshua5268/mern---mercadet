@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import Badge from 'react-bootstrap/esm/Badge';
 import { useContext } from 'react';
 import { Store } from './Store';
+import CartScreen from './screens/CartScreen';
 
 function App() {
   const { state } = useContext(Store);
@@ -40,6 +41,7 @@ function App() {
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />}></Route>
               <Route path="/" element={<HomeScreen />}></Route>
+              <Route path="/cart" element={<CartScreen />}></Route>
             </Routes>
           </Container>
         </main>
