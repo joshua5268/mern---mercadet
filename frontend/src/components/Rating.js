@@ -33,7 +33,7 @@ export default function Rating(props) {
               ? 'fas fa-star'
               : rating >= 2.5
               ? 'fas fa-star-half-alt'
-              : 'fas fa-star'
+              : 'far fa-star'
           }
         ></i>
       </span>
